@@ -13,11 +13,11 @@
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
 
-function returnFirstArgument(a, b) {
-  return a + b;
+function returnFirstArgument(a) {
+  return a;
 }
 
-var test = returnFirstArgument('Igor, ', 'Halo!');
+var test = returnFirstArgument('Halo');
 
 console.log('Задание 1');
 console.log(test);
@@ -37,9 +37,7 @@ console.log(test);
    sumWithDefaults(10) вернет 110
  */
 
-const b = 100;
-
-function sumWithDefaults(a) {
+function sumWithDefaults(a, b = 100) {
   return a + b;
 }
 
@@ -55,21 +53,16 @@ console.log(sum);
 
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
- */
+*/
 
-function returnFnResult(a, b) {
-
-  function fn() {
-    return a + b;    
-  }
-
-  return fn();
+function returnFnResult(fn) {
+  var r = fn();
+  return r;
 }
 
-var twoFuncs = returnFnResult(2, 5);
-
-console.log('Задание 3');
-console.log(twoFuncs);
+returnFnResult(function() {
+  console.log('Task 3');
+});
 
 /*
  Задание 4:
@@ -86,12 +79,18 @@ console.log(twoFuncs);
  */
 
 function returnCounter(number) {
-  return function() {
-    return number++;
+
+  if (number === undefined) {
+    number = 0;
   }
+
+  return function() {
+    return ++number;
+  }
+
 }
 
-var f = returnCounter(1);
+var f = returnCounter();
 
 console.log('Задание 4');
 console.log(f());
@@ -111,7 +110,8 @@ console.log(f());
 function returnArgumentsArray() {
   var arr = [];
   for (var i = 0; i < arguments.length; i++) {
-    arr[i] = arguments[i];
+    arr.push(arguments[i]);
+    //arr[i] = arguments[i];
   }
 
   return arr;
@@ -136,13 +136,24 @@ console.log(myNewArray);
    var newSum = bindFunction(sum, 2, 4);
 
    console.log(newSum()) выведет 6
- */
+*/
 
-function bindFunction(fn) {
+function bindFunction(func, sum6) {
+  return function() {
+    return func.apply(sum6, arguments);
+  };
 }
-console.log('Задание 6');
 
-/*
+var sum6 = function() {
+  return [].reduce.call(arguments, function(result, current) {
+    return result + current;
+  }, this.sum6);
+};
+
+var bindedSum6 = sum6.bind({sum6: 10}, 5, 10);
+console.log(bindedSum6());
+
+
 export {
     returnFirstArgument,
     sumWithDefaults,
@@ -150,4 +161,4 @@ export {
     returnFnResult,
     returnCounter,
     bindFunction
-}*/
+}

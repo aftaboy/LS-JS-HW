@@ -19,8 +19,8 @@ module.exports = function(config) {
             reports: ['html', 'lcovonly', 'text-summary'],
             fixWebpackSourcePaths: true
         },
-        port: 9876,
-        browsers: ['ChromeHeadless'], // или Chrome или Firefox
+        port: 9999,
+        browsers: ['Firefox'], // или Chrome или Firefox
         captureTimeout: 20000,
         singleRun: true,
         plugins: [
