@@ -75,7 +75,7 @@ console.log('Task 4');
 function upperProps(obj) {
   var newObj = Object.getOwnPropertyNames(obj);
   var upperCaseObj = newObj.map(function (fn) {
-    
+
     return fn.toUpperCase();
   });
 
