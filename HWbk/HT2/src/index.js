@@ -44,7 +44,8 @@ var myMap = map([1, 2, 3], function (number, index, numbers) {
 console.log('Task 3');
 
 function reduce(array, fn, initial) {
-  let result, i;
+  var result, i;
+
   if (initial !== undefined) {
     i = 0;
     result = initial;
@@ -80,11 +81,10 @@ function upperProps(obj) {
     return fn.toUpperCase();
   });
 
-  console.log(upperCaseObj);
   return upperCaseObj;
 }
 
-upperProps({ name: 'Fedor', lastName: 'Tolmachev' });
+console.log(upperProps({ name: 'Fedor', lastName: 'Tolmachev' }));
 
 /*
  Задание 5 *:
