@@ -11,18 +11,38 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+    let div = document.createElement('div');
+
+    div.textContent = text;
+    document.body.appendChild(div);
+
+    return div;
 }
+
+createDivWithText('loftschool');
 
 /*
  Задание 2:
 
- Функция должна вставлять элемент, переданный в переметре what в начало элемента, переданного в параметре where
+ Функция должна вставлять элемент, переданный в параметре what в начало элемента, переданного в параметре where
 
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+    let p1 = document.createElement('p1'),
+        p2 = document.createElement('p2');
+
+    p2.textContent = where;
+    document.body.appendChild(p2);
+
+    p1.textContent = what;
+    p2.insertBefore(p1, p2.firstChild);
+
+    return p1, p2;
 }
+
+prepend('text1', 'text2');
 
 /*
  Задание 3:
@@ -44,7 +64,18 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+    let pSiblings = [];
+
+    for (let tag of where.children) {
+        if (tag.nextElementSibling && tag.nextElementSibling.tagName  === 'P') {
+            pSiblings.push(tag);
+        }        
+    };
+
+    return pSiblings;
 }
+
+console.log(findAllPSiblings(document.body));
 
 /*
  Задание 4:
@@ -66,12 +97,14 @@ function findAllPSiblings(where) {
 function findError(where) {
     var result = [];
 
-    for (var child of where.childNodes) {
+    for (var child of where.children) {
         result.push(child.innerText);
     }
 
     return result;
 }
+
+console.log(findError(document.body));
 
 /*
  Задание 5:
@@ -86,22 +119,44 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+    let result = [];
+
+    for (let nodes of where.childNodes) {
+        if (nodes.nodeType === 3) {
+            where.removeChild(nodes);
+            result.push(nodes);
+        }
+    }
+    return result;
 }
+
+console.log(deleteTextNodes(document.body));
 
 /*
  Задание 6:
 
  Выполнить предудыщее задание с использование рекурсии - то есть необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
 
- Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
-
  Пример:
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+    let result = [];
+
+    for (let nodes of where.childNodes) {
+        if (nodes.nodeType === 3) {
+            where.removeChild(nodes);
+            result.push(nodes);
+        } else {
+            deleteTextNodesRecursive(nodes);
+            result.push(nodes);
+        }
+    }
+    return result;
 }
+
+console.log(deleteTextNodesRecursive(document.body));
 
 /*
  Задание 7 *:
