@@ -30,19 +30,8 @@ createDivWithText('loftschool');
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-    let p1 = document.createElement('p1'),
-        p2 = document.createElement('p2');
-
-    p2.textContent = where;
-    document.body.appendChild(p2);
-
-    p1.textContent = what;
-    p2.insertBefore(p1, p2.firstChild);
-
-    return p1, p2;
+    where.insertBefore(what, where.firstChild);
 }
-
-prepend('text1', 'text2');
 
 /*
  Задание 3:
@@ -118,6 +107,7 @@ console.log(findError(document.body));
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
+console.log('Tast 5');
 function deleteTextNodes(where) {
     let result = [];
 
@@ -141,10 +131,11 @@ console.log(deleteTextNodes(document.body));
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
+console.log('Tast 6');
 function deleteTextNodesRecursive(where) {
     let result = [];
 
-    for (let nodes of where.childNodes) {
+    for (let nodes of [...where.childNodes]) {
         if (nodes.nodeType === 3) {
             where.removeChild(nodes);
             result.push(nodes);
