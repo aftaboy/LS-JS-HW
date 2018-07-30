@@ -5,24 +5,17 @@
  Напишите аналог встроенного метода forEach для работы с массивами
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
-console.log('Task 1');
-
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
     fn(array[i], i, array);
   }
 }
 
-var myForEach = forEach([1, 2, 3], function (number, index, numbers) {
-  console.log(number, index, numbers)
-});
-
 /*
  Задание 2:
  Напишите аналог встроенного метода map для работы с массивами
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-console.log('Task 2');
 
 function map(array, fn) {
   var result = [];
@@ -32,16 +25,11 @@ function map(array, fn) {
   return result;
 }
 
-var myMap = map([1, 2, 3], function (number, index, numbers) {
-  console.log(number, index, numbers)
-});
-
 /*
  Задание 3:
  Напишите аналог встроенного метода reduce для работы с массивами
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
-console.log('Task 3');
 
 function reduce(array, fn, initial) {
   let result, i;
@@ -58,12 +46,7 @@ function reduce(array, fn, initial) {
   }
 
   return result;
-};
-
-var myReduce = reduce([1, 2, 3, 4, 5], function (result, current, index, array) {
-  console.log(result, current, index, array);
-  return result + current;
-});
+}
 
 /*
  Задание 4:
@@ -71,20 +54,15 @@ var myReduce = reduce([1, 2, 3, 4, 5], function (result, current, index, array) 
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-console.log('Task 4');
 
 function upperProps(obj) {
   var newObj = Object.getOwnPropertyNames(obj);
-  var upperCaseObj = newObj.map(function (fn) {
-
+  var upperCaseObj = newObj.map(function(fn) {
     return fn.toUpperCase();
   });
 
-  console.log(upperCaseObj);
   return upperCaseObj;
 }
-
-upperProps({ name: 'Fedor', lastName: 'Tolmachev' });
 
 /*
  Задание 5 *:
@@ -92,21 +70,44 @@ upperProps({ name: 'Fedor', lastName: 'Tolmachev' });
  Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
 function slice(array, from, to) {
+  var i,
+    length,
+    result = [];
+
+  if (from == null || from == undefined || from < -array.length) {
+    i = 0;
+  } else if (from > array.length) {
+    i = array.length;
+  } else if (from < 0) {
+    i = array.length + from;
+  } else {
+    i = from;
+  }
+
+  if (to == null || to == undefined) {
+    length = array.length;
+  } else if (to > array.length) {
+    length = array.length;
+  } else if (to < 0) {
+    length = array.length + to;
+  } else {
+    length = to;
+  }
+
+  for (i; i < length; i++) {
+    result.push(array[i]);
+  }
+
+  return result;
 }
+
+console.log(slice([1, 2, 3, 4, 5, 6], 6));
 
 /*
  Задание 6 *:
  Функция принимает объект и должна вернуть Proxy для этого объекта
  Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
  */
-function createProxy(obj) {
-}
+function createProxy(obj) {}
 
-export {
-    forEach,
-    map,
-    reduce,
-    upperProps,
-    slice,
-    createProxy
-};
+export { forEach, map, reduce, upperProps, slice, createProxy };
