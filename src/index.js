@@ -64,11 +64,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 
-function returnCounter(number) {
-  if (number === undefined) {
-    number = 0;
-  }
-
+function returnCounter(number = 0) {
   return function() {
     return ++number;
   };
@@ -88,7 +84,7 @@ function returnArgumentsArray() {
   var arr = [];
   for (var i = 0; i < arguments.length; i++) {
     arr.push(arguments[i]);
-    //arr[i] = arguments[i];
+    // arr[i] = arguments[i];
   }
 
   return arr;
@@ -112,7 +108,7 @@ function returnArgumentsArray() {
 
 function bindFunction(fn, ...args) {
   return function() {
-    return fn.apply(null, args);
+    return fn.apply(context, args);
   };
 }
 
