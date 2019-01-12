@@ -33,7 +33,7 @@ function map(array, fn) {
 
 function reduce(array, fn, initial) {
   let result, i;
-  if (initial !== undefined) {
+  if (initial) {
     i = 0;
     result = initial;
   } else {
@@ -42,11 +42,18 @@ function reduce(array, fn, initial) {
   }
 
   for (i; i < array.length; i++) {
-    result = fn.call(null, result, array[i], i, array);
+    result = fn(result, array[i], i, array);
   }
 
   return result;
 }
+
+let reduceArray = [1, 2, 3, 4, 5];
+
+reduce(reduceArray, function(sum, current) {
+  console.log(sum + current);
+  return sum + current;
+}, 0);
 
 /*
  Задание 4:
@@ -115,5 +122,10 @@ function createProxy(obj) {
     }
   });
 }
+
+let proxyObj = {};
+let newProxyObj = createProxy(proxyObj);
+newProxyObj.weight = 20;
+console.log(newProxyObj);
 
 export { forEach, map, reduce, upperProps, slice, createProxy };
