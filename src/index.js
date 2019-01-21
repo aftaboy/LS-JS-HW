@@ -1,3 +1,6 @@
+import { assert } from 'chai';
+import { randomValue } from '../helper';
+
 /* ДЗ 4 - работа с DOM */
 
 /*
@@ -18,8 +21,6 @@ function createDivWithText(text) {
 
     return div;
 }
-
-createDivWithText('loftschool');
 
 /*
  Задание 2:
@@ -56,15 +57,15 @@ function findAllPSiblings(where) {
     let pSiblings = [];
 
     for (let tag of where.children) {
-        if (tag.nextElementSibling && tag.nextElementSibling.tagName  === 'P') {
+        if (tag.nextElementSibling && tag.nextElementSibling.tagName === 'P') {
             pSiblings.push(tag);
-        }        
-    };
+        }
+    }
 
     return pSiblings;
 }
 
-console.log(findAllPSiblings(document.body));
+// console.log(findAllPSiblings(document.body));
 
 /*
  Задание 4:
@@ -93,7 +94,7 @@ function findError(where) {
     return result;
 }
 
-console.log(findError(document.body));
+// console.log(findError(document.body));
 
 /*
  Задание 5:
@@ -107,7 +108,7 @@ console.log(findError(document.body));
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-console.log('Tast 5');
+// console.log('Tast 5');
 function deleteTextNodes(where) {
     let result = [];
 
@@ -117,10 +118,11 @@ function deleteTextNodes(where) {
             result.push(nodes);
         }
     }
+
     return result;
 }
 
-console.log(deleteTextNodes(document.body));
+// console.log(deleteTextNodes(document.body));
 
 /*
  Задание 6:
@@ -131,7 +133,7 @@ console.log(deleteTextNodes(document.body));
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-console.log('Tast 6');
+// console.log('Tast 6');
 function deleteTextNodesRecursive(where) {
     let result = [];
 
@@ -144,10 +146,10 @@ function deleteTextNodesRecursive(where) {
             result.push(nodes);
         }
     }
+
     return result;
 }
-
-console.log(deleteTextNodesRecursive(document.body));
+// deleteTextNodesRecursive(document.body);
 
 /*
  Задание 7 *:
@@ -169,7 +171,33 @@ console.log(deleteTextNodesRecursive(document.body));
      texts: 3
    }
  */
+
+let result = { tags: {}, classes: {}, texts: 0 };
+
 function collectDOMStat(root) {
+    for (let node of root.childNodes) {
+        if (node.nodeType === 3) {
+            result.texts++;
+        } else {
+            collectDOMStat(node);
+            if (node.tagName in result.tags) {
+                result.tags[node.tagName]++;
+            } else {
+                result.tags[node.tagName] = 1;
+            }
+            if (node.className) {
+                node.classList.forEach(element => {
+                    if (element in result.classes) {
+                        result.classes[element]++;
+                    } else {
+                        result.classes[element] = 1;
+                    }
+                });
+            }
+        }
+    }
+
+    return result;
 }
 
 /*
@@ -204,8 +232,7 @@ function collectDOMStat(root) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {
-}
+function observeChildNodes(where, fn) {}
 
 export {
     createDivWithText,
