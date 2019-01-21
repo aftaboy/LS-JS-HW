@@ -1,6 +1,3 @@
-import { assert } from 'chai';
-import { randomValue } from '../helper';
-
 /* ДЗ 4 - работа с DOM */
 
 /*
