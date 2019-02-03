@@ -30,7 +30,7 @@
     ],
     "indent": [
       "error",
-      4,
+      2,
       {
         "SwitchCase": 1
       }
@@ -101,6 +101,7 @@
     "max-nested-callbacks": [
       "error",
       4
-    ]
+    ],
+    "no-console": "off"
   }
 }

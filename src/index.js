@@ -18,8 +18,7 @@
  */
 console.log('Task 1');
 function isAllTrue(array, fn, thisArg) {
-
-  if (!!array && array.constructor !== Array || array.length == 0) {
+  if ((!!array && array.constructor !== Array) || array.length == 0) {
     throw new Error('empty array');
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
@@ -32,10 +31,11 @@ function isAllTrue(array, fn, thisArg) {
   }
 
   return true;
-};
+}
 
 try {
   var myEvery = isAllTrue([1, 2, 3], x => x < 6);
+
   console.log(myEvery);
 } catch (e) {
   console.log(e.message);
@@ -59,8 +59,7 @@ try {
  */
 console.log('Task 2');
 function isSomeTrue(array, fn, thisArg) {
-
-  if (!!array && array.constructor !== Array || array.length == 0) {
+  if ((!!array && array.constructor !== Array) || array.length == 0) {
     throw new Error('empty array');
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
@@ -73,10 +72,11 @@ function isSomeTrue(array, fn, thisArg) {
   }
 
   return false;
-};
+}
 
 try {
   var mySome = isSomeTrue([1, 5, 10], x => x > 6);
+
   console.log(mySome);
 } catch (e) {
   console.log(e.message);
@@ -96,7 +96,7 @@ try {
 console.log('Task 3');
 function returnBadArguments(fn, ...args) {
   if (typeof fn !== 'function') {
-    throw new Error('fn is not a function')
+    throw new Error('fn is not a function');
   }
 
   let badArguments = [];
@@ -105,7 +105,7 @@ function returnBadArguments(fn, ...args) {
     try {
       fn(arg);
     } catch (e) {
-      badArguments.push(arg)
+      badArguments.push(arg);
     }
   }
 
@@ -132,10 +132,10 @@ function returnBadArguments(fn, ...args) {
 console.log('Task 4');
 function calculator(number = 0) {
   if (typeof number !== 'number' || !isFinite(number)) {
-    throw new Error('number is not a number')
+    throw new Error('number is not a number');
   }
 
-  let sum = function (...args) {
+  let sum = function(...args) {
     let result = number;
 
     for (let num of args) {
@@ -143,9 +143,9 @@ function calculator(number = 0) {
     }
 
     return result;
-  }
+  };
 
-  let dif = function (...args) {
+  let dif = function(...args) {
     let result = number;
 
     for (let num of args) {
@@ -153,24 +153,22 @@ function calculator(number = 0) {
     }
 
     return result;
-  }
+  };
 
-  let div = function (...args) {
-
+  let div = function(...args) {
     let result = number;
 
     for (let num of args) {
       if (num == 0) {
-        throw new Error('division by 0')
+        throw new Error('division by 0');
       }
       result /= num;
     }
 
     return result;
-  }
+  };
 
-  let mul = function (...args) {
-
+  let mul = function(...args) {
     let result = number;
 
     for (let num of args) {
@@ -178,16 +176,11 @@ function calculator(number = 0) {
     }
 
     return result;
-  }
+  };
 
-  return { sum, dif, div, mul }
+  return { sum, dif, div, mul };
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
 
-export {
-  isAllTrue,
-  isSomeTrue,
-  returnBadArguments,
-  calculator
-};
+export { isAllTrue, isSomeTrue, returnBadArguments, calculator };
