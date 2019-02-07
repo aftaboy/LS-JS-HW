@@ -26,8 +26,7 @@ const homeworkContainer = document.querySelector('#homework-container');
    const newDiv = createDiv();
    homeworkContainer.appendChild(newDiv);
  */
-function createDiv() {
-}
+function createDiv() {}
 
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
@@ -37,23 +36,20 @@ function createDiv() {
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
-function addListeners(target) {
-}
+function addListeners(target) {}
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
 
 addDivButton.addEventListener('click', function() {
-    // создать новый div
-    const div = createDiv();
+  // создать новый div
+  const div = createDiv();
 
-    // добавить на страницу
-    homeworkContainer.appendChild(div);
-    // назначить обработчики событий мыши для реализации D&D
-    addListeners(div);
-    // можно не назначать обработчики событий каждому div в отдельности, а использовать делегирование
-    // или использовать HTML5 D&D - https://www.html5rocks.com/ru/tutorials/dnd/basics/
+  // добавить на страницу
+  homeworkContainer.appendChild(div);
+  // назначить обработчики событий мыши для реализации D&D
+  addListeners(div);
+  // можно не назначать обработчики событий каждому div в отдельности, а использовать делегирование
+  // или использовать HTML5 D&D - https://www.html5rocks.com/ru/tutorials/dnd/basics/
 });
 
-export {
-    createDiv
-};
+export { createDiv };
