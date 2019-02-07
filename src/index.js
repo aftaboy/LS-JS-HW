@@ -229,7 +229,31 @@ function collectDOMStat(root) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+function observeChildNodes(where, fn) {
+  let config = { attributes: true, childList: true, characterData: true };
+
+  let info = {
+    insert: { type: 'insert', nodes: [] },
+    remove: { type: 'remove', nodes: [] }
+  };
+
+  let observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'childList') {
+        if (mutation.removedNodes.length > 0) {
+          info.remove.nodes.push(...mutation.removedNodes);
+          fn(info.remove);
+        }
+        if (mutation.addedNodes.length > 0) {
+          info.insert.nodes.push(...mutation.addedNodes);
+          fn(info.insert);
+        }
+      }
+    });
+  });
+
+  observer.observe(where, config);
+}
 
 export {
   createDivWithText,
