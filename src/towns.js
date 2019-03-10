@@ -37,35 +37,34 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-  return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
 
-      var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json', true);
 
-      xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json', true);
+        xhr.addEventListener('load', () => {
+            if (xhr.status == 200) {
+                let xhrResponseText = xhr.responseText;
+                let cities = JSON.parse(xhrResponseText);
 
-      xhr.addEventListener('load', () => {
-          if (xhr.status == 200) {
-              var xhrResponseText = xhr.responseText;
-              var cities = JSON.parse(xhrResponseText);
+                cities.sort((city1, city2) => {
+                    if (city1.name > city2.name) {
+                        return 1;
+                    } else if (city1.name < city2.name) {
+                        return -1;
+                    }
 
-              cities.sort((city1, city2) => {
-                  if (city1.name > city2.name) {
-                      return 1;
-                  } else if (city1.name < city2.name) {
-                      return -1;
-                  } else {
-                      return 0;
-                  }
-              });
+                    return 0;
+                });
 
-              resolve(cities);
-          } else {
-              var error = new Error(xhr.status + ': ' + xhr.statusText);
-          }
-      });
+                resolve(cities);
+            } else {
+                reject(new Error(xhr.status + ': ' + xhr.statusText));
+            }
+        });
 
-      xhr.send();
-  });
+        xhr.send();
+    });
 }
 
 /*
@@ -80,7 +79,7 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
-  return (full.toUpperCase().indexOf(chunk.toUpperCase()) >= 0);
+    return full.toUpperCase().indexOf(chunk.toUpperCase()) >= 0;
 }
 
 isMatching('Moscow', 'moscow');
@@ -109,20 +108,20 @@ filterInput.addEventListener('keyup', function() {
 
     filterResult.innerHTML = null;
 
-    var filterValue = filterInput.value;
+    let filterValue = filterInput.value;
 
     if (!filterValue) {
         return;
     }
 
-    var filteredCities = citiesArray.filter(city => {
+    let filteredCities = citiesArray.filter(city => {
         return isMatching(city.name, filterValue);
     });
 
-    var fragment = document.createDocumentFragment();
+    let fragment = document.createDocumentFragment();
 
     filteredCities.map(city => {
-        var cityListItem = document.createElement('li');
+        let cityListItem = document.createElement('li');
 
         cityListItem.textContent = city.name;
         fragment.appendChild(cityListItem);
@@ -131,7 +130,4 @@ filterInput.addEventListener('keyup', function() {
     filterResult.appendChild(fragment);
 });
 
-export {
-    loadTowns,
-    isMatching
-};
+export { loadTowns, isMatching };
