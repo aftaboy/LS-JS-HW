@@ -45,9 +45,10 @@ function skipDefault(eventName, target) {
    emulateClick(document.querySelector('a')) // для указанного элемента должно быть сэмулировано события click
  */
 function emulateClick(target) {
-  var event = new Event('click');
+  // var event = new Event('click');
 
-  target.dispatchEvent(event);
+  // target.dispatchEvent(event);
+  target.click();
 }
 
 /*
@@ -60,13 +61,20 @@ function emulateClick(target) {
    delegate(document.body, () => console.log('кликнули на button')) // добавит такой обработчик кликов для body, который будет вызывать указанную функцию только если кликнули на кнопку (элемент с тегом button)
  */
 function delegate(target, fn) {
-  target.onclick = function(event) {
-    var eventTarget = event.target;
+  // target.onclick = function(event) {
+  //   var eventTarget = event.target;
 
-    if (eventTarget.tagName == 'BUTTON') {
+  //   if (eventTarget.tagName === 'BUTTON') {
+  //     fn();
+  //   }
+  // };
+  target.addEventListener('click', e => {
+    let eTarget = e.target;
+
+    if (eTarget.tagName == 'BUTTON') {
       fn();
     }
-  };
+  });
 }
 
 /*
@@ -79,12 +87,13 @@ function delegate(target, fn) {
    once(document.querySelector('button'), () => console.log('обработчик выполнился!')) // добавит такой обработчик кликов для указанного элемента, который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
-  var handler = function handler() {
-    target.removeEventListener('click', handler);
-    fn();
-  };
+  // var handler = function handler() {
+  //   target.removeEventListener('click', handler);
+  //   fn();
+  // };
 
-  target.addEventListener('click', handler);
+  // target.addEventListener('click', handler);
+  target.addEventListener('click', fn, { once: true });
 }
 
 export { addListener, removeListener, skipDefault, emulateClick, delegate, once };
