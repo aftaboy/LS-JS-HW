@@ -6,47 +6,41 @@ let rules = require('./webpack.config.rules')();
 let path = require('path');
 
 rules.push({
-    test: /\.css$/,
-    use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader'
-    })
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: 'css-loader'
+  })
 });
 
 module.exports = {
-    entry: {
-        main: './src/index.js',
-        towns: './src/towns.js'
-    },
-    devServer: {
-        index: 'towns.html'
-    },
-    output: {
-        filename: '[name].[hash].js',
-        path: path.resolve('dist')
-    },
-    devtool: 'source-map',
-    module: { rules },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                drop_debugger: false,
-                warnings: false
-            }
-        }),
-        new ExtractTextPlugin('styles.css'),
-        new HtmlPlugin({
-            title: 'Main Homework',
-            template: 'main.hbs',
-            chunks: ['main']
-        }),
-        new HtmlPlugin({
-            title: 'Div Drag And Drop',
-            template: 'towns.hbs',
-            filename: 'towns.html',
-            chunks: ['towns']
-        }),
-        new CleanWebpackPlugin(['dist'])
-    ]
+  entry: {
+    cookie: './src/cookie.js'
+  },
+  devServer: {
+    index: 'cookie.html'
+  },
+  output: {
+    filename: '[name].[hash].js',
+    path: path.resolve('dist')
+  },
+  devtool: 'source-map',
+  module: { rules },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        drop_debugger: false,
+        warnings: false
+      }
+    }),
+    new ExtractTextPlugin('styles.css'),
+    new HtmlPlugin({
+      title: 'Cookies',
+      template: 'cookie.hbs',
+      filename: 'cookie.html',
+      chunks: ['cookie']
+    }),
+    new CleanWebpackPlugin(['dist'])
+  ]
 };
