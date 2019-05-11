@@ -93,10 +93,9 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-var townPromise = loadTowns();
 var citiesArray = [];
 
-townPromise.then(cities => {
+loadTowns().then(cities => {
     loadingBlock.style.display = 'none';
     filterBlock.style.display = 'block';
 
@@ -120,7 +119,7 @@ filterInput.addEventListener('keyup', function() {
 
     let fragment = document.createDocumentFragment();
 
-    filteredCities.map(city => {
+    filteredCities.forEach(city => {
         let cityListItem = document.createElement('li');
 
         cityListItem.textContent = city.name;
