@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
  ДЗ 7 - Создать редактор cookie с возможностью фильтрации
 
@@ -31,6 +32,20 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
+
+function getCookies() {
+  let cookies = document.cookie.split('; ');
+  let result = [];
+
+  cookies.forEach(e => {
+    let cc = e.split('=');
+
+    result.push({ name: cc[0], value: cc[1] });
+  });
+
+  return result;
+}
+
 const homeworkContainer = document.querySelector('#homework-container');
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
@@ -47,6 +62,52 @@ filterNameInput.addEventListener('keyup', function() {
   // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
 });
 
+function renderCookie(name, value) {
+  let tr = document.createElement('tr'),
+    tdName = document.createElement('td'),
+    tdValue = document.createElement('td'),
+    tdBtn = document.createElement('td'),
+    delBtn = document.createElement('button');
+
+  tdName.textContent = name;
+  tdValue.textContent = value;
+  delBtn.textContent = 'delete';
+  delBtn.addEventListener('click', () => {
+    deleteCookie(name);
+    tr.remove();
+  });
+  tdBtn.appendChild(delBtn);
+
+  tr.appendChild(tdName);
+  tr.appendChild(tdValue);
+  tr.appendChild(tdBtn);
+  listTable.appendChild(tr);
+}
+
+function deleteCookie(name) {
+  document.cookie = `${name}=""; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+}
+
+function renderTable() {
+  let myCookies = getCookies();
+
+  listTable.innerHTML = null;
+
+  myCookies.forEach(e => {
+    if (!e.name) { 
+      return;
+    }
+    renderCookie(e.name, e.value);
+  });
+}
+
+renderTable();
+
 addButton.addEventListener('click', () => {
-  // здесь можно обработать нажатие на кнопку "добавить cookie"
+  if (!addNameInput.value || !addValueInput.value) {
+    return;
+  }
+  document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+
+  renderTable();
 });
