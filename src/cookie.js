@@ -46,6 +46,10 @@ function getCookies() {
   return result;
 }
 
+function isMatching(full, chunk) {
+  return full.toUpperCase().indexOf(chunk.toUpperCase()) >= 0;
+}
+
 const homeworkContainer = document.querySelector('#homework-container');
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
@@ -59,6 +63,7 @@ const addButton = homeworkContainer.querySelector('#add-button');
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
 filterNameInput.addEventListener('keyup', function() {
+  renderTable();
   // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
 });
 
@@ -89,16 +94,33 @@ function deleteCookie(name) {
 }
 
 function renderTable() {
-  let myCookies = getCookies();
+  let allCookies = getCookies();
+  let renderingCookies = [];
 
   listTable.innerHTML = null;
 
-  myCookies.forEach(e => {
+  renderingCookies = filterCookies(allCookies);
+
+  renderingCookies.forEach(e => {
     if (!e.name) { 
       return;
     }
     renderCookie(e.name, e.value);
   });
+}
+
+function filterCookies(cookies) {
+  let filterValue = filterNameInput.value;
+  let filteredCookies = [];
+
+  if (!filterValue) {
+    return cookies;
+  }
+  filteredCookies = cookies.filter(e => {
+    return isMatching(e.name, filterValue) || isMatching(e.value, filterValue)
+  });
+
+  return filteredCookies;
 }
 
 renderTable();
